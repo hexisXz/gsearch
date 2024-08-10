@@ -1,0 +1,50 @@
+#!/bin/sh
+
+# Define color variables
+RESET='\e[0m'
+BOLD='\e[1m'
+UNDERLINE='\e[4m'
+BLACK='\e[30m'
+RED='\e[31m'
+GREEN='\e[32m'
+YELLOW='\e[33m'
+BLUE='\e[34m'
+MAGENTA='\e[35m'
+CYAN='\e[36m'
+WHITE='\e[37m'
+BG_BLACK='\e[40m'
+BG_RED='\e[41m'
+BG_GREEN='\e[42m'
+BG_YELLOW='\e[43m'
+BG_BLUE='\e[44m'
+BG_MAGENTA='\e[45m'
+BG_CYAN='\e[46m'
+BG_WHITE='\e[47m'
+
+# Check if a search query was provided
+if [ "$#" -lt 1 ]; then
+    echo -e "${YELLOW}Usage: $0 <search_query>${YELLOW}"
+    exit 1
+fi
+
+# Combine all arguments into a single search query
+search_query="$*"
+
+# Replace spaces with "+" to form a valid URL
+formatted_query=$(echo "$search_query" | sed 's/ /+/g')
+
+# Construct the Google search URL
+search_url="https://www.google.com/search?q=$formatted_query"
+
+# Print the search URL (for debugging or informational purposes)
+echo -e "${GREEN}----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------${GREEN}"
+echo "Searching for: $search_url"
+echo -e "${GREEN}----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------${GREEN}"
+
+# Perform the Google search and process results
+echo -e "${BLUE}+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=++=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=++=+=+=+=+=+=+=+=+=+=+=+=++=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
+"
+curl -s "$search_url" | html2text --decode-errors=ignore | grep -B 4 '\[Wikipedia\]' | awk '!seen[$0]++' 
+curl -s "$search_url" | html2text --decode-errors=ignore | awk 'NR > 25' | grep -A 6 Wikipediaen.wikipedia.org | awk '!seen[$0]++' 
+echo -e "${BLUE}+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=++=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=++=+=+=+=+=+=+=+=+=+=+=+=++=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+${BLUE}"
+
