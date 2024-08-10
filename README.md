@@ -9,3 +9,7 @@ sh <(curl -v -L
 
 # how to use
 type gsearch {whatever you want to search}
+
+
+![search](https://github.com/user-attachments/assets/455af098-ec0e-472a-98f7-8c6aeb7ba73a)
+

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+git clone https://github.com/hexisXz/gsearch.git && cd ./gsearch && chmod +x gsearch && sudo mv gsearch /bin
